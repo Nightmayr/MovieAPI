@@ -1,0 +1,5 @@
+#Eclipse stuff
+.settings
+target/
+.project
+.classpath

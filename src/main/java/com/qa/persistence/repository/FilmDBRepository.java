@@ -22,25 +22,50 @@ public class FilmDBRepository implements FilmRepository {
 
 	@PersistenceContext(unitName = "primary")
 	private EntityManager manager;
-	
+
 	@Inject
 	private JSONUtil util;
 	
 	public String getAllFilms() {
-		Query query = manager.createQuery("SELECT * FROM Film");
+		Query query = manager.createQuery("SELECT f FROM Film f");
 		Collection<Film> films = (Collection<Film>)query.getResultList();
 		return util.getJSONForObject(films);
 	}
 	
-	
+	@Transactional(REQUIRED)
 	public String addFilm(String film) {
-		// TODO Auto-generated method stub
-		return null;
+		Film afilm = util.getObjectForJSON(film, Film.class);
+		manager.persist(afilm);
+		return "Created it m8";
+	}
+	
+	@Transactional(REQUIRED)
+	public String deleteFilm(Long id) {
+		Film film = findFilm(id); 
+		if (film != null) {
+			manager.remove(film);
+		}
+		return "Deleted it m8";
+	}
+	
+	private Film findFilm(Long id) {
+		return manager.find(Film.class, id);
+	}
+	
+	public EntityManager getManager() {
+		return manager;
 	}
 
-	public String deleteFilm(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
+	}
+
+	public JSONUtil getUtil() {
+		return util;
+	}
+
+	public void setUtil(JSONUtil util) {
+		this.util = util;
 	}
 
 }

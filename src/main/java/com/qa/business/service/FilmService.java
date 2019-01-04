@@ -6,6 +6,6 @@ public interface FilmService {
 
 		String addFilm(String film);
 
-		String deleteFilm(String name);
+		String deleteFilm(Long id);
 
 	}

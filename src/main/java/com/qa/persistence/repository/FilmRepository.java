@@ -6,6 +6,6 @@ public interface FilmRepository {
 
 	String addFilm(String film);
 
-	String deleteFilm(String name);
+	String deleteFilm(Long id);
 
 }

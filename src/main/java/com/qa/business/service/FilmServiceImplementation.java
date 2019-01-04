@@ -18,11 +18,18 @@ public class FilmServiceImplementation implements FilmService {
 	}
 
 	public String addFilm(String film) {
-		return repo.addFilm(film);
+		film = film.toLowerCase();
+		
+		if (film.contains("titanic")) {
+			return "nah m8";
+		}
+		else {
+			return repo.addFilm(film);
+		}
 	}
 
-	public String deleteFilm(String name) {
-		return repo.deleteFilm(name);
+	public String deleteFilm(Long id) {
+		return repo.deleteFilm(id);
 	}
 	
 	public void setRepo(FilmRepository repo) {
